@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { schemas } from "../docs/components/schemas.js";
 
 const options = {
   definition: {
@@ -22,9 +23,10 @@ const options = {
           bearerFormat: "JWT",
         },
       },
+      schemas,
     },
   },
-  apis: ["./src/app.js", "./src/routes/**/*.js"],
+  apis: ["./src/docs/**/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
