@@ -17,6 +17,14 @@ class AuthController {
         ),
       );
   });
+
+  login = asyncHandler(async (req, res) => {
+    const data = await authService.login(req.validatedData);
+
+    return res
+      .status(HTTP_STATUS.OK)
+      .json(new ApiResponse(HTTP_STATUS.OK, "Login successful", data));
+  });
 }
 
 export default new AuthController();
