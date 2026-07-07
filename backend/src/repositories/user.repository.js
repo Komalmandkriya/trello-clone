@@ -11,12 +11,22 @@ class UserRepository {
     return query;
   }
 
-  findById(id) {
-    return User.findById(id);
+  findById(id, { withRefreshToken = false } = {}) {
+    const query = User.findById(id);
+
+    if (withRefreshToken) {
+      query.select("+refreshToken");
+    }
+
+    return query;
   }
 
   create(data) {
     return User.create(data);
+  }
+
+  updateRefreshToken(id, refreshToken) {
+    return User.findByIdAndUpdate(id, { refreshToken }, { new: true });
   }
 }
 

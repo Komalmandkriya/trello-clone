@@ -36,4 +36,15 @@ export const schemas = {
       },
     },
   },
+
+  RefreshTokenRequest: {
+    type: "object",
+    required: ["refreshToken"],
+    properties: {
+      refreshToken: {
+        type: "string",
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      },
+    },
+  },
 };

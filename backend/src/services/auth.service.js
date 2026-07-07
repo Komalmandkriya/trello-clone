@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import userRepository from "../repositories/user.repository.js";
 import ApiError from "../utils/ApiError.js";
 import { HTTP_STATUS } from "../constants/httpStatus.js";
@@ -52,6 +53,49 @@ class AuthService {
       user: loggedInUser,
       ...tokens,
     };
+  }
+
+  // Profile Service
+  async getProfile(userId) {
+    const user = await userRepository.findById(userId);
+
+    if (!user) {
+      throw new ApiError(HTTP_STATUS.NOT_FOUND, "User not found");
+    }
+
+    return user;
+  }
+
+  // Logout Service
+  async logout(userId) {
+    await userRepository.updateRefreshToken(userId, null);
+  }
+
+  // Refresh Token Service
+  async refreshToken(token) {
+    let decoded;
+
+    try {
+      decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    } catch (error) {
+      throw new ApiError(
+        HTTP_STATUS.UNAUTHORIZED,
+        "Invalid or expired refresh token",
+      );
+    }
+
+    const user = await userRepository.findById(decoded.id, {
+      withRefreshToken: true,
+    });
+
+    if (!user || user.refreshToken !== token) {
+      throw new ApiError(
+        HTTP_STATUS.UNAUTHORIZED,
+        "Invalid or expired refresh token",
+      );
+    }
+
+    return generateTokens(user);
   }
 }
 

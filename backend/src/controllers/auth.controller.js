@@ -25,6 +25,36 @@ class AuthController {
       .status(HTTP_STATUS.OK)
       .json(new ApiResponse(HTTP_STATUS.OK, "Login successful", data));
   });
+
+  profile = asyncHandler(async (req, res) => {
+    const user = await authService.getProfile(req.user._id);
+
+    return res
+      .status(HTTP_STATUS.OK)
+      .json(
+        new ApiResponse(HTTP_STATUS.OK, "Profile fetched successfully", user),
+      );
+  });
+
+  logout = asyncHandler(async (req, res) => {
+    await authService.logout(req.user._id);
+
+    return res
+      .status(HTTP_STATUS.OK)
+      .json(new ApiResponse(HTTP_STATUS.OK, "Logout successful"));
+  });
+
+  refreshToken = asyncHandler(async (req, res) => {
+    const tokens = await authService.refreshToken(
+      req.validatedData.refreshToken,
+    );
+
+    return res
+      .status(HTTP_STATUS.OK)
+      .json(
+        new ApiResponse(HTTP_STATUS.OK, "Token refreshed successfully", tokens),
+      );
+  });
 }
 
 export default new AuthController();
