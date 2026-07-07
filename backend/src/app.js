@@ -1,6 +1,7 @@
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./config/swagger.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 app.use(express.json());
@@ -35,4 +36,6 @@ app.get("/api/health", (req, res) => {
     message: "Server is running",
   });
 });
+
+app.use(errorHandler);
 export default app;
