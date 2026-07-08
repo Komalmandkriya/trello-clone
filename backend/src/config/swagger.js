@@ -32,7 +32,7 @@ const options = {
       schemas,
     },
   },
-  apis: ["./src/docs/**/*.js"],
+  apis: ["./src/**/*.swagger.js", "./src/docs/components/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
