@@ -27,3 +27,16 @@ export const loginSchema = z.object({
 export const refreshTokenSchema = z.object({
   refreshToken: z.string().min(1, "Refresh token is required"),
 });
+
+export const updateProfileSchema = z
+  .object({
+    name: z
+      .string()
+      .trim()
+      .min(2, "Name must be at least 2 characters")
+      .max(50, "Name cannot exceed 50 characters")
+      .optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field must be provided",
+  });

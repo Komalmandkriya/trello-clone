@@ -65,7 +65,16 @@ class AuthService {
 
     return user;
   }
+  // update profile
+  async updateProfile(userId, data) {
+    const user = await userRepository.updateProfile(userId, data);
 
+    if (!user) {
+      throw new ApiError(HTTP_STATUS.NOT_FOUND, "User not found");
+    }
+
+    return user;
+  }
   // Logout Service
   async logout(userId) {
     await userRepository.updateRefreshToken(userId, null);

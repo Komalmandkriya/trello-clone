@@ -47,4 +47,14 @@ export const schemas = {
       },
     },
   },
+
+  UpdateProfileRequest: {
+    type: "object",
+    properties: {
+      name: {
+        type: "string",
+        example: "John Doe",
+      },
+    },
+  },
 };

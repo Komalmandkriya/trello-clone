@@ -9,9 +9,9 @@ interface Toast {
 }
 
 const VARIANT_STYLES: Record<ToastVariant, string> = {
-  success: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  error: "border-red-200 bg-red-50 text-red-800",
-  info: "border-slate-200 bg-white text-slate-800",
+  success: "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200",
+  error: "border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200",
+  info: "border-slate-200 bg-white text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200",
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {

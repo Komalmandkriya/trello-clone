@@ -11,7 +11,7 @@ const validate = (schema) => {
     } catch (error) {
       if (error instanceof ZodError) {
         return next(
-          new ApiError(HTTP_STATUS.BAD_REQUEST, error.errors[0].message),
+          new ApiError(HTTP_STATUS.BAD_REQUEST, error.issues[0].message),
         );
       }
 

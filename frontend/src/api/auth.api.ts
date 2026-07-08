@@ -4,6 +4,7 @@ import type {
   AuthResponse,
   LoginPayload,
   RegisterPayload,
+  UpdateProfilePayload,
   User,
 } from "../types/auth.types";
 
@@ -31,6 +32,14 @@ export const authApi = {
   async getProfile(): Promise<User> {
     const { data } = await apiClient.get<ApiSuccessResponse<User>>(
       "/auth/profile",
+    );
+    return data.data;
+  },
+
+  async updateProfile(payload: UpdateProfilePayload): Promise<User> {
+    const { data } = await apiClient.patch<ApiSuccessResponse<User>>(
+      "/auth/profile",
+      payload,
     );
     return data.data;
   },

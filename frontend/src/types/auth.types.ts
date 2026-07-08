@@ -1,11 +1,20 @@
+export interface Avatar {
+  url: string;
+  publicId: string;
+}
+
 export interface User {
   _id: string;
   name: string;
   email: string;
-  avatar: string | null;
+  avatar: Avatar;
   isVerified: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface UpdateProfilePayload {
+  name: string;
 }
 
 export interface AuthTokens {

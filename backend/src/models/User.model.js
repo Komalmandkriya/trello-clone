@@ -38,8 +38,14 @@ const userSchema = new mongoose.Schema(
     },
 
     avatar: {
-      type: String,
-      default: null,
+      url: {
+        type: String,
+        default: "",
+      },
+      publicId: {
+        type: String,
+        default: "",
+      },
     },
 
     isVerified: {
