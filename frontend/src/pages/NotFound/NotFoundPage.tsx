@@ -3,10 +3,10 @@ import Button from "../../components/ui/Button";
 
 export default function NotFoundPage() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-4 bg-slate-50 px-4 text-center">
+    <div className="flex min-h-svh flex-col items-center justify-center gap-4 bg-slate-50 px-4 text-center dark:bg-slate-900">
       <p className="text-sm font-semibold text-brand-600">404</p>
-      <h1 className="text-2xl font-semibold text-slate-900">Page not found</h1>
-      <p className="max-w-sm text-sm text-slate-500">
+      <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Page not found</h1>
+      <p className="max-w-sm text-sm text-slate-500 dark:text-slate-400">
         The page you're looking for doesn't exist or has been moved.
       </p>
       <Link to="/">
