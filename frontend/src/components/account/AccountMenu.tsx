@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { useTheme } from "../theme/themeContext";
 import { useLogout } from "../../features/auth/useLogout";
-import { getInitials } from "../../utils/getInitials";
+import Avatar from "../ui/Avatar";
 
 export default function AccountMenu() {
   const user = useAppSelector((state) => state.auth.user);
@@ -16,7 +16,10 @@ export default function AccountMenu() {
     if (!open) return;
 
     function handlePointerDown(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -47,9 +50,9 @@ export default function AccountMenu() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account menu"
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white transition-shadow hover:ring-2 hover:ring-brand-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:hover:ring-brand-900"
+        className="rounded-full transition-shadow hover:ring-2 hover:ring-brand-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:hover:ring-brand-900"
       >
-        {getInitials(user.name)}
+        <Avatar name={user?.name} url={user?.avatar?.url} size="sm" />
       </button>
 
       {open && (
@@ -62,14 +65,14 @@ export default function AccountMenu() {
               Account
             </p>
             <div className="mt-3 flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
-                {getInitials(user.name)}
-              </div>
+              <Avatar name={user?.name} url={user?.avatar?.url} size="md" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
-                  {user.name}
+                  {user?.name}
                 </p>
-                <p className="truncate text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+                  {user?.email}
+                </p>
               </div>
             </div>
           </div>

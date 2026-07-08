@@ -21,5 +21,14 @@ export const loginFormSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
+export const updateNameSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name cannot exceed 50 characters"),
+});
+
 export type RegisterFormValues = z.infer<typeof registerFormSchema>;
 export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type UpdateNameFormValues = z.infer<typeof updateNameSchema>;

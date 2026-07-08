@@ -1,8 +1,14 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { authApi } from "../../api/auth.api";
+import { userApi } from "../../api/user.api";
 import { tokenStorage } from "../../utils/tokenStorage";
 import { getErrorMessage } from "../../utils/getErrorMessage";
-import type { LoginPayload, RegisterPayload, User } from "../../types/auth.types";
+import type {
+  LoginPayload,
+  RegisterPayload,
+  UpdateProfilePayload,
+  User,
+} from "../../types/auth.types";
 
 type AuthStatus = "idle" | "loading" | "succeeded" | "failed";
 
@@ -53,6 +59,28 @@ export const fetchProfile = createAsyncThunk(
       return await authApi.getProfile();
     } catch (error) {
       return rejectWithValue(getErrorMessage(error, "Failed to load profile"));
+    }
+  },
+);
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (payload: UpdateProfilePayload, { rejectWithValue }) => {
+    try {
+      return await authApi.updateProfile(payload);
+    } catch (error) {
+      return rejectWithValue(getErrorMessage(error, "Failed to update profile"));
+    }
+  },
+);
+
+export const uploadAvatar = createAsyncThunk(
+  "auth/uploadAvatar",
+  async (file: File, { rejectWithValue }) => {
+    try {
+      return await userApi.uploadAvatar(file);
+    } catch (error) {
+      return rejectWithValue(getErrorMessage(error, "Failed to upload avatar"));
     }
   },
 );
@@ -123,6 +151,14 @@ const authSlice = createSlice({
         state.status = "idle";
         state.user = null;
         state.bootstrapped = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, action: PayloadAction<User>) => {
+        state.user = action.payload;
+      })
+      .addCase(uploadAvatar.fulfilled, (state, action) => {
+        if (state.user) {
+          state.user.avatar = action.payload;
+        }
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
