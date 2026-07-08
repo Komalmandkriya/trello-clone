@@ -35,7 +35,18 @@ class AuthController {
         new ApiResponse(HTTP_STATUS.OK, "Profile fetched successfully", user),
       );
   });
+  updateProfile = asyncHandler(async (req, res) => {
+    const user = await authService.updateProfile(
+      req.user._id,
+      req.validatedData,
+    );
 
+    return res
+      .status(HTTP_STATUS.OK)
+      .json(
+        new ApiResponse(HTTP_STATUS.OK, "Profile updated successfully", user),
+      );
+  });
   logout = asyncHandler(async (req, res) => {
     await authService.logout(req.user._id);
 

@@ -86,4 +86,25 @@
  *         description: Profile fetched successfully
  *       401:
  *         description: Access token is required
+ *   patch:
+ *     summary: Update Current User Profile
+ *     tags:
+ *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UpdateProfileRequest'
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *       400:
+ *         description: Validation error
+ *       401:
+ *         description: Access token is required
+ *       404:
+ *         description: User not found
  */

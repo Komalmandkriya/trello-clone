@@ -25,6 +25,12 @@ class UserRepository {
     return User.create(data);
   }
 
+  updateProfile(id, data) {
+    return User.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true,
+    });
+  }
   updateRefreshToken(id, refreshToken) {
     return User.findByIdAndUpdate(id, { refreshToken }, { new: true });
   }

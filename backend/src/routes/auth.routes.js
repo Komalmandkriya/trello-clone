@@ -4,6 +4,7 @@ import {
   loginSchema,
   registerSchema,
   refreshTokenSchema,
+  updateProfileSchema,
 } from "../validators/auth.validator.js";
 import validate from "../middleware/validate.middleware.js";
 import protectedRoute from "../middleware/auth.middleware.js";
@@ -19,5 +20,11 @@ router.post(
 );
 router.post("/logout", protectedRoute, authController.logout);
 router.get("/profile", protectedRoute, authController.profile);
+router.patch(
+  "/profile",
+  protectedRoute,
+  validate(updateProfileSchema),
+  authController.updateProfile,
+);
 
 export default router;
