@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
   isLoading?: boolean;
 }
 
@@ -11,6 +11,7 @@ const VARIANT_STYLES: Record<NonNullable<ButtonProps["variant"]>, string> = {
     "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 focus-visible:outline-slate-400 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-700",
   ghost:
     "bg-transparent text-slate-600 hover:bg-slate-100 focus-visible:outline-slate-400 dark:text-slate-300 dark:hover:bg-slate-800",
+  danger: "bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600",
 };
 
 export default function Button({
