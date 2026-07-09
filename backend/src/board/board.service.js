@@ -31,6 +31,13 @@ class BoardService {
       .populate(BOARD_POPULATE)
       .sort({ createdAt: -1 });
   }
+
+  async archiveBoard(board) {
+    board.isArchived = !board.isArchived;
+    await board.save();
+
+    return board.populate(BOARD_POPULATE);
+  }
   async getBoardById(board) {
     return board.populate(BOARD_POPULATE);
   }

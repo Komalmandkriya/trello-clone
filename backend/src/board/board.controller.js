@@ -25,7 +25,7 @@ class BoardController {
   });
 
   getWorkspaceBoards = asyncHandler(async (req, res) => {
-    const boards = await boardService.getWorkspaceBoards(req.workspace._id);
+    const boards = await boardService.getWorkspaceBoards(req.workspace);
 
     return res
       .status(HTTP_STATUS.OK)
