@@ -372,7 +372,11 @@ export default function WorkspaceDetailPage() {
                 <Link
                   key={board._id}
                   to={`/workspaces/${workspaceId}/boards/${board._id}`}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition-colors hover:border-brand-400 hover:bg-white dark:border-slate-700 dark:bg-slate-900/40 dark:hover:bg-slate-900"
+                  className={`rounded-2xl border p-4 transition-colors hover:border-brand-400 hover:bg-white dark:hover:bg-slate-900 ${
+                    board.isArchived
+                      ? "border-amber-300 bg-amber-50/70 dark:border-amber-700 dark:bg-amber-950/20"
+                      : "border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/40"
+                  }`}
                 >
                   <div
                     className="h-24 rounded-xl bg-cover bg-center"
@@ -382,13 +386,20 @@ export default function WorkspaceDetailPage() {
                         : "linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)",
                     }}
                   />
-                  <div className="mt-3">
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {board.name}
-                    </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                      {board.description || "No description yet."}
-                    </p>
+                  <div className="mt-3 flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                        {board.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                        {board.description || "No description yet."}
+                      </p>
+                    </div>
+                    {board.isArchived && (
+                      <span className="rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
+                        Archived
+                      </span>
+                    )}
                   </div>
                 </Link>
               ))}
