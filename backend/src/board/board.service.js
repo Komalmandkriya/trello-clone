@@ -26,10 +26,9 @@ class BoardService {
   getWorkspaceBoards(workspace) {
     return Board.find({
       workspace: workspace._id,
-      isArchived: false,
     })
       .populate(BOARD_POPULATE)
-      .sort({ createdAt: -1 });
+      .sort({ isArchived: 1, createdAt: -1 });
   }
 
   async archiveBoard(board) {
