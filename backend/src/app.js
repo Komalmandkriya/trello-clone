@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import healthRoutes from "./routes/health.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import workspaceRoutes from "./workspace/workspace.routes.js";
+import boardRoutes from "./board/board.routes.js";
 
 import cors from "cors";
 const app = express();
@@ -21,5 +22,6 @@ app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/workspaces", workspaceRoutes);
+app.use("/api/boards", boardRoutes);
 app.use(errorHandler);
 export default app;

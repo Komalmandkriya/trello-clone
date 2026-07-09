@@ -6,6 +6,7 @@ import RegisterPage from "../pages/Register/RegisterPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import WorkspaceDetailPage from "../pages/Workspace/WorkspaceDetailPage";
+import BoardDetailPage from "../pages/Board/BoardDetailPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
 export default function AppRoutes() {
@@ -21,7 +22,14 @@ export default function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/workspaces/:workspaceId" element={<WorkspaceDetailPage />} />
+        <Route
+          path="/workspaces/:workspaceId"
+          element={<WorkspaceDetailPage />}
+        />
+        <Route
+          path="/workspaces/:workspaceId/boards/:boardId"
+          element={<BoardDetailPage />}
+        />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
