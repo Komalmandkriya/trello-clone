@@ -4,7 +4,12 @@ import ApiError from "../utils/ApiError.js";
 import { HTTP_STATUS } from "../constants/httpStatus.js";
 import Workspace from "../workspace/workspace.model.js";
 
-async function fetchWorkspaceOrThrow(workspaceId) {
+async function fetchWorkspaceOrThrow(req) {
+  const workspaceId =
+    req.params.workspaceId ||
+    req.validatedData?.workspaceId ||
+    req.body.workspaceId;
+
   if (!mongoose.isValidObjectId(workspaceId)) {
     throw new ApiError(HTTP_STATUS.BAD_REQUEST, "Invalid workspace ID");
   }
@@ -19,9 +24,7 @@ async function fetchWorkspaceOrThrow(workspaceId) {
 }
 
 export const isWorkspaceMember = asyncHandler(async (req, res, next) => {
-  const workspace =
-    req.workspace ?? (await fetchWorkspaceOrThrow(req.params.workspaceId));
-
+  const workspace = req.workspace ?? (await fetchWorkspaceOrThrow(req));
   const isMember = workspace.members.some(
     (member) => member.user.toString() === req.user._id.toString(),
   );
@@ -38,8 +41,7 @@ export const isWorkspaceMember = asyncHandler(async (req, res, next) => {
 });
 
 export const isWorkspaceOwner = asyncHandler(async (req, res, next) => {
-  const workspace =
-    req.workspace ?? (await fetchWorkspaceOrThrow(req.params.workspaceId));
+  const workspace = req.workspace ?? (await fetchWorkspaceOrThrow(req));
 
   if (workspace.owner.toString() !== req.user._id.toString()) {
     throw new ApiError(
