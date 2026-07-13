@@ -6,7 +6,7 @@ import { tokenStorage } from "./utils/tokenStorage";
 
 function App() {
   const dispatch = useAppDispatch();
-
+  console.log("App rendered");
   useEffect(() => {
     if (tokenStorage.getAccessToken()) {
       dispatch(fetchProfile());
